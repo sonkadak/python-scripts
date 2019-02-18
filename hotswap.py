@@ -93,7 +93,7 @@ for diff in t1s-t2s:
 	arr.append(diff)
 if len(arr) == 0:
 	print "There is no unmounted disk"
-	os.popen("curl -s 'https://api.telegram.org/bot748707889:AAEcLCva6BKncZNx4_Z-sPBS_pEHFLzwzCY/sendmessage?chat_id=434965238&text=교체 대상 디스크 확인 실패: '"+ipaddr)
+	os.popen("curl -s 'https://api.telegram.org/bot[BOT_TOKEN]/sendmessage?chat_id=[CHAT_ID]&text=교체 대상 디스크 확인 실패: '"+ipaddr)
 	END_OF_SCRIPT()
 
 '''
@@ -131,7 +131,7 @@ with open('pdisk.txt') as fp:
 			print "VD created with PD "+ bcolors.OKGREEN + ent + bcolors.ENDC
 		else:
 			print bcolors.FAIL + tmp + bcolors.ENDC
-			os.popen("curl -s 'https://api.telegram.org/bot748707889:AAEcLCva6BKncZNx4_Z-sPBS_pEHFLzwzCY/sendmessage?chat_id=434965238&text=VD 생성 실패: '"+ipaddr)
+			os.popen("curl -s 'https://api.telegram.org/bot[BOT_TOKEN]/sendmessage?chat_id=[CHAT_ID]&text=VD 생성 실패: '"+ipaddr)
 			END_OF_SCRIPT()
 
 for dev in arr:
@@ -164,11 +164,11 @@ for mntpnt in arr2:
 		print "All sequence is done	[ " + bcolors.OKGREEN + "OK" + bcolors.ENDC + " ]"
 		print "Please visit "+bcolors.OKBLUE+"STON WM"+bcolors.ENDC
 		sys.stdout.write(os.popen("df -h |grep /dev/sd |grep -v sda |sort").read())
-		os.popen("curl -s 'https://api.telegram.org/bot748707889:AAEcLCva6BKncZNx4_Z-sPBS_pEHFLzwzCY/sendmessage?chat_id=434965238&text=핫스왑 완료: '"+ipaddr)
+		os.popen("curl -s 'https://api.telegram.org/bot[BOT_TOKEN]/sendmessage?chat_id=[CHAT_ID]&text=핫스왑 완료: '"+ipaddr)
 	except:
 		print bcolors.FAIL + "Somethings gone wrong" + bcolors.ENDC
 		print "Please manually mount disk:\nhttp://127.0.0.1:"+smport+"/command/mount?disk=[MOUNT_POINT]\nor Visit STON WM"
-		os.popen("curl -s 'https://api.telegram.org/bot748707889:AAEcLCva6BKncZNx4_Z-sPBS_pEHFLzwzCY/sendmessage?chat_id=434965238&text=스톤 디스크 마운트 API 실패: '"+ipaddr)
+		os.popen("curl -s 'https://api.telegram.org/bot[BOT_TOKEN]/sendmessage?chat_id=[CHAT_ID]&text=스톤 디스크 마운트 API 실패: '"+ipaddr)
 		END_OF_SCRIPT()
 
 END_OF_SCRIPT()
