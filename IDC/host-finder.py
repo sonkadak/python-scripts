@@ -1,7 +1,4 @@
 import time
-import urllib3
-import os
-from subprocess import Popen
 import re
 import pandas as pd
 
