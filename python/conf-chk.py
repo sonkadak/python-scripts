@@ -11,3 +11,15 @@ for sec in ini.sections():
                 print("PW: %s" % ini[sec][k])
             if k == 'homedir':
                 print("HOME DIR: %s" % ini[sec][k])
+
+import xml.etree.ElementTree as ET
+
+xml = ET.parse('FileZilla Server.xml')
+root = xml.getroot()
+
+for user in root.iter('User'):
+    print('User:',user.attrib['Name'])
+    for opt in user:
+        if opt.tag == 'Permissions':
+            for p in opt:
+                print('HomeDIR:',p.attrib['Dir'])
