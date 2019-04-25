@@ -38,7 +38,7 @@ def handle(msg):
 			bot.sendMessage(chat_id, tmp)
 		if msg['text'].startswith('dig'):
 			dmn = msg['text'][4:]
-			res = os.popen("sh /home/cobellus/gatest.sh "+dmn).read()
+			res = os.popen("sh [SCRIPT_LOCATION]gatest.sh "+dmn).read()
 			bot.sendMessage(chat_id, res)
 			
 
