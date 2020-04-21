@@ -118,12 +118,16 @@ def update_on_k8s(target):
     # update geofront configmap
     ans = input("Would you want to update K8S resource with "+target+"? [y/n]")
     if ans == "y" or ans == "Y":
-        os.popen("kubectl replace -f " + target).read()
+        if 'geofront-secret.yml' in target:
+            os.popen("kubectl replace -f " + target).read()
+        else:
+            os.popen("kubectl delete configmap -nNAMESPACE geofront-config").read()
+            os.popen("kubectl create configmap -nNAMESPACE geofront-config --from-file=" + target).read()
         print("Updated on K8s. You should restart geofront-server on K8S")
 
 def renew_config():
     print("Update " + geofront_configmap_dir + "from current data")
-    os.popen("kubectl get configmap -noc-system geofront-config -o yaml > "+geofront_configmap_yaml).read()
+    os.popen("kubectl get configmap -nNAMESPACE geofront-config -o yaml > "+geofront_configmap_yaml).read()
     with open(geofront_configmap_yaml) as y:
         yd = yaml.safe_load(y)
     jd = yd["data"]["server.json"]
