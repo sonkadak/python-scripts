@@ -64,6 +64,7 @@ USAGE: ./geofront-mgr.py COMMAND OPTION
                  NEW_PASSWORD is string
     - show       Show host information: geofront-mgr show HOSTNAME
     - list       List all hosts in configmap
+    - restart    Restart the geofront-server on K8S
     - help       print this message and exit''')
     sys.exit()
 
@@ -148,6 +149,11 @@ def list_hosts():
     for i in jf:
         print(i)
     sys.exit()
+            
+def restart_geofront():
+    print("Restart geofront-server")
+    os.popen("kubectl delete pod -noc-system $(kubectl get pod -nNAMESPACE |grep geofront |awk '{print $1}')")
+    sys.exit()
 
 try:
     res = 0
@@ -180,6 +186,10 @@ try:
         elif sys.argv[1] == "list":
             jf = renew_config()
             list_hosts()
+            
+        # restart geofront-server
+        elif sys.argv[1] == "restart":
+            restart_geofront()
 
         else:
             usage()
